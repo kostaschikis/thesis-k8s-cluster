@@ -1,0 +1,7 @@
+apiVersion: unipi.gr/v1
+kind: Thesi
+metadata:
+  name: flask
+  namespace: uni-work
+spec:
+  type: flask

@@ -1,0 +1,37 @@
+# Requester App and Service
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: requester-deployment
+  namespace: uni-work
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: requester
+  template:
+    metadata:
+      labels:
+        app: requester
+    spec:
+      containers:
+      - name: requester
+        image: kostaschikis/requester:latest
+        env:
+        - name: "LB"
+          value: http://flask:5000/app
+        ports:
+        - containerPort: 5000
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: requester
+  namespace: uni-work
+spec:
+  selector:
+    app: requester
+  ports:
+  - protocol: TCP
+    port: 7272
+    targetPort: 7272

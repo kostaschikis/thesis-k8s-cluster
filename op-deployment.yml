@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: op
+spec:
+  selector:
+    matchLabels:
+      app: op
+  template:
+    metadata:
+      labels:
+        app: op
+    spec:
+      serviceAccountName: thesis-operator
+      containers:
+      - image: kostaschikis/op:latest
+        name: op
+        env:
+        - name: THRESHOLD
+          value: '600'
+        - name: EXECUTION_CONTEXT
+          value: 'PROD'
